@@ -33,8 +33,6 @@ const Search: React.FC<ISearch> = ({ geodata }) => {
     geodata(latlng);
   };
 
-  console.log(geometry);
-
   // geocoder.geocode({ placeId: city }).then(({ results }) => {
   //   console.log(results[0].geometry.location, "places");
   // });

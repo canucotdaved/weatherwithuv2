@@ -5,21 +5,27 @@ interface PropType {
   children: React.ReactNode;
   geo: any;
 }
-const DataContext = React.createContext({});
+// interface ICurrent {
+//   weather?:Array<{}>
+
+// }
+// interface IDataContext extends ICurrent{
+//   current: ICurrent;
+// }
+
+const DataContext = React.createContext<any>({});
 
 export function useData() {
   return useContext(DataContext);
 }
 
 const Background: React.FC<PropType> = ({ children, geo }) => {
-  let { lat, lng } = geo;
-
+  const { lat, lng } = geo;
   const [weatherData, setWeatherData] = useState({});
   const weatherApiLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,daily&units=metric&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`;
 
   useEffect(() => {
-    getUserLocation();
-    if (!Object.keys(geo).length) return;
+    if (!Object.keys(geo).length) getUserLocation();
     fethWeatherData();
   }, [geo]);
 
@@ -29,8 +35,8 @@ const Background: React.FC<PropType> = ({ children, geo }) => {
   };
 
   const getLocation = (position: any) => {
-    lat = position.coords.latitude;
-    lng = position.coords.longitude;
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
     const locationWeather = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,daily&units=metric&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`;
     const getWeatherByLocation = async () => {
       await axios.get(locationWeather).then((res: any) => {

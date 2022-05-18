@@ -10,7 +10,6 @@ import {
 
 function App() {
   const [geo, setGeo] = useState({});
-  console.log(geo, "GEO");
   return (
     <div className="flex relative">
       <Background geo={geo}>

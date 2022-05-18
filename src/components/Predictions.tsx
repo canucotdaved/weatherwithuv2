@@ -2,6 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useData } from "./Background";
 import { WiHumidity, WiStrongWind, WiWindDeg } from "react-icons/wi";
 
+interface IData {
+  current: ICurrent;
+}
+
+interface ICurrent {
+  humidity: number;
+  wind_deg: number;
+  wind_speed: number;
+}
+
 const data: any[] = [
   { icon: WiHumidity },
   { icon: WiStrongWind },
@@ -14,8 +24,11 @@ const Predictions = () => {
 
   useEffect(() => {
     if (!Object.keys(mainData).length) return;
+    destructData();
+  }, [mainData]);
+
+  const destructData = () => {
     const {
-      //@ts-ignore
       current: { humidity, wind_deg, wind_speed },
     } = mainData;
     const dataList = [
@@ -24,9 +37,7 @@ const Predictions = () => {
       { label: "Wind Degrees", value: wind_deg },
     ];
     setListData(dataList);
-  }, [mainData]);
-
-  console.log(listdata, `list`);
+  };
 
   return (
     <div className="flex flex-col pr-8 mt-20">
